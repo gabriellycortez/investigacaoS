@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Central de Investigação</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="scan"></div>
+<div id="toast"></div>
+
+<section id="home" class="screen active">
+  <div class="hero">
+    <div class="classified">CENTRAL DE INVESTIGAÇÃO // ACESSO RESTRITO</div>
+    <h1>ARQUIVOS<br><span>CONFIDENCIAIS</span></h1>
+    <p>Três casos. Uma regra: <b>suspeita não é prova.</b></p>
+    <div class="terminal">
+      <p>[SISTEMA] protocolo de investigação carregado.</p>
+      <p>[SISTEMA] 03 arquivos detectados.</p>
+      <p>[REGRA] cada caso desbloqueia o próximo.</p>
+    </div>
+    <label>IDENTIFICAÇÃO DA EQUIPE</label>
+    <input id="teamInput" maxlength="35" placeholder="Ex.: Os Investigadores">
+    <button class="primary" onclick="start()">ENTRAR NA CENTRAL →</button>
+  </div>
+</section>
+
+<section id="hub" class="screen">
+  <header class="top">
+    <div><span class="eyebrow">CENTRAL</span><h2>ARQUIVOS DA EQUIPE</h2></div>
+    <div class="team">EQUIPE: <b id="teamName"></b></div>
+  </header>
+  <main class="hub">
+    <div class="case-card unlocked" id="card1">
+      <div class="case-num">CASO 001</div><h3>OFFLINE</h3>
+      <p>Cyberbullying, identidade digital, acessos e uma cadeia de pistas que aponta para a pessoa errada.</p>
+      <div class="status" id="status1">● DISPONÍVEL</div>
+      <button onclick="openCase(1)">INICIAR CASO 001</button>
+    </div>
+    <div class="case-card locked" id="card2">
+      <div class="case-num">CASO 002</div><h3>O ARQUIVO 17</h3>
+      <p>Notas vazadas, computadores compartilhados, cópias do arquivo e depoimentos que não combinam.</p>
+      <div class="status" id="status2">🔒 BLOQUEADO</div>
+      <button id="btn2" disabled>CONCLUA O CASO 001</button>
+    </div>
+    <div class="case-card locked" id="card3">
+      <div class="case-num">CASO 003</div><h3>PROTOCOLO ZERO</h3>
+      <p>Desafio final: uma evidência pode ser verdadeira e ainda assim levar à conclusão errada.</p>
+      <div class="status" id="status3">🔒 BLOQUEADO</div>
+      <button id="btn3" disabled>CONCLUA O CASO 002</button>
+    </div>
+  </main>
+  <div class="hub-note">⚠️ O próximo arquivo só aparece após a conclusão e a acusação do caso anterior.</div>
+</section>
+
+<section id="game" class="screen">
+  <header class="top">
+    <div><span class="eyebrow" id="caseLabel"></span><h2 id="caseTitle"></h2></div>
+    <div class="team">EQUIPE: <b id="gameTeam"></b></div>
+  </header>
+  <div class="layout">
+    <aside>
+      <div class="sidebox"><small>PROGRESSO</small><strong id="progress">01 / 24</strong><div class="bar"><i id="bar"></i></div></div>
+      <div class="sidebox"><small>PISTAS</small><div id="clueGrid" class="grid"></div></div>
+      <div class="sidebox"><small>REGRA</small><p>PALPITE NÃO É EVIDÊNCIA.</p><p>Use números de pistas na acusação.</p></div>
+      <button class="ghost" onclick="backHub()">← CENTRAL</button>
+    </aside>
+    <main class="investigation">
+      <div class="clue-meta"><span id="clueType"></span><span id="clueNumber"></span></div>
+      <h1 id="clueTitle"></h1>
+      <div class="evidence" id="evidence"></div>
+      <div class="question">
+        <h3 id="question"></h3>
+        <div id="options"></div>
+        <div id="feedback"></div>
+      </div>
+      <button class="primary next" id="nextBtn" onclick="submitAnswer()">ANALISAR E LIBERAR PRÓXIMA →</button>
+    </main>
+  </div>
+</section>
+
+<section id="accuse" class="screen">
+  <div class="accuse-wrap">
+    <div class="classified">ÚLTIMA ETAPA // ACUSAÇÃO</div>
+    <h1>VOCÊS TÊM UMA TEORIA.<br><span>AGORA PROVEM.</span></h1>
+    <p class="warning">Uma acusação sem evidências numeradas não vale como conclusão.</p>
+    <label>RESPONSÁVEL</label>
+    <select id="accused"></select>
+    <label>MOTIVO</label><textarea id="motive" placeholder="Por que essa pessoa faria isso?"></textarea>
+    <label>RECONSTRUÇÃO DOS FATOS</label><textarea id="reconstruction" placeholder="Explique a sequência dos acontecimentos."></textarea>
+    <label>4 EVIDÊNCIAS — número + explicação</label>
+    <div class="evidence-inputs">
+      <input id="e1" placeholder="Pista nº + evidência">
+      <input id="e2" placeholder="Pista nº + evidência">
+      <input id="e3" placeholder="Pista nº + evidência">
+      <input id="e4" placeholder="Pista nº + evidência">
+    </div>
+    <button class="primary" onclick="submitAccusation()">APRESENTAR ACUSAÇÃO</button>
+  </div>
+</section>
+
+<section id="result" class="screen">
+  <div class="result-wrap">
+    <div id="resultIcon"></div><h1 id="resultTitle"></h1><div id="resultText"></div>
+    <div class="reveal" id="reveal"></div>
+    <button class="primary" onclick="finishCase()">CONTINUAR →</button>
+  </div>
+</section>
+
+<script src="js/script.js"></script>
+</body>
+</html>
